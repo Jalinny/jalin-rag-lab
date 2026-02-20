@@ -3,13 +3,7 @@ import { MarkdownHooks as ReactMarkdown } from "react-markdown";
 import remarkGfm from "remark-gfm";
 import type { Message } from "./types";
 
-const FAQ = [
-  "Who is Jalin?",
-  "What I do?",
-  "Explore My Work",
-  "Skills Overview",
-  "Want to Work?",
-];
+const FAQ = ["Who is Jalin?", "What I do?", "Explore My Work", "Skills Overview", "Want to Work?"];
 
 // Hardcoded credentials — frontend-only auth gate for this personal demo
 const CREDENTIALS = { username: "jalin", password: "raglab2024" };
@@ -667,11 +661,15 @@ function LoginScreen({ onLogin }: { onLogin: () => void }) {
     <div className="login-screen">
       <form className="login-card" onSubmit={handleSubmit}>
         <div>
-          <div className="login-title"><mark>Sign in</mark> to continue</div>
+          <div className="login-title">
+            <mark>Sign in</mark> to continue
+          </div>
           <div className="login-subtitle">Access Jalin's RAG Lab assistant</div>
         </div>
         <div className="login-field">
-          <label className="login-label" htmlFor="login-username">Username</label>
+          <label className="login-label" htmlFor="login-username">
+            Username
+          </label>
           <input
             id="login-username"
             className="login-input"
@@ -679,11 +677,16 @@ function LoginScreen({ onLogin }: { onLogin: () => void }) {
             autoComplete="username"
             placeholder="Enter username"
             value={username}
-            onChange={(e) => { setUsername(e.target.value); setError(""); }}
+            onChange={(e) => {
+              setUsername(e.target.value);
+              setError("");
+            }}
           />
         </div>
         <div className="login-field">
-          <label className="login-label" htmlFor="login-password">Password</label>
+          <label className="login-label" htmlFor="login-password">
+            Password
+          </label>
           <input
             id="login-password"
             className="login-input"
@@ -691,11 +694,16 @@ function LoginScreen({ onLogin }: { onLogin: () => void }) {
             autoComplete="current-password"
             placeholder="Enter password"
             value={password}
-            onChange={(e) => { setPassword(e.target.value); setError(""); }}
+            onChange={(e) => {
+              setPassword(e.target.value);
+              setError("");
+            }}
           />
         </div>
         {error && <div className="login-error">{error}</div>}
-        <button className="login-btn" type="submit">Sign in</button>
+        <button className="login-btn" type="submit">
+          Sign in
+        </button>
       </form>
     </div>
   );
@@ -706,7 +714,9 @@ export default function App() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [streaming, setStreaming] = useState(false);
-  const [notice, setNotice] = useState<{ text: string; type: "success" | "error" | "info" } | null>(null);
+  const [notice, setNotice] = useState<{ text: string; type: "success" | "error" | "info" } | null>(
+    null
+  );
   const bottomRef = useRef<HTMLDivElement>(null);
   const streamingIdRef = useRef<string | null>(null);
   const abortControllerRef = useRef<AbortController | null>(null);
@@ -773,7 +783,7 @@ export default function App() {
           const data = line.slice(6).replace(/\\n/g, "\n");
           if (data === "[DONE]") break;
           setMessages((prev) =>
-            prev.map((m) => m.id === assistantId ? { ...m, content: m.content + data } : m)
+            prev.map((m) => (m.id === assistantId ? { ...m, content: m.content + data } : m))
           );
         }
       }
@@ -806,7 +816,10 @@ export default function App() {
       if (data.status === "no_documents") {
         showNotice("No documents found in backend/data/", "error");
       } else {
-        showNotice(`Done — ${data.chunks} chunks from ${data.sources?.length ?? 0} file(s)`, "success");
+        showNotice(
+          `Done — ${data.chunks} chunks from ${data.sources?.length ?? 0} file(s)`,
+          "success"
+        );
       }
     } catch {
       showNotice("Ingest failed — is the backend running?", "error");
@@ -828,8 +841,20 @@ export default function App() {
 
       <div className="rainbow">
         {[
-          '#c9a97a','#4a8c5c','#c96b5a','#9090c8','#e8d040','#909090','#7a3050',
-          '#d47a6a','#2a4a7a','#8a2030','#e8a0b0','#9050a0','#a04020','#f0ead8',
+          "#c9a97a",
+          "#4a8c5c",
+          "#c96b5a",
+          "#9090c8",
+          "#e8d040",
+          "#909090",
+          "#7a3050",
+          "#d47a6a",
+          "#2a4a7a",
+          "#8a2030",
+          "#e8a0b0",
+          "#9050a0",
+          "#a04020",
+          "#f0ead8",
         ].map((color, i) => (
           <div
             key={color}
@@ -847,12 +872,13 @@ export default function App() {
             <div className="status-dot" />
             online
           </div>
-          <button className="btn-logout" onClick={logout}>Sign out</button>
+          <button className="btn-logout" onClick={logout}>
+            Sign out
+          </button>
         </div>
       </header>
 
       <div className="main-layout">
-
         {/* ── Sidebar ── */}
         <aside className="sidebar">
           <button className="new-chat-btn" onClick={newChat}>
@@ -861,12 +887,7 @@ export default function App() {
           <div className="sidebar-divider" />
           <span className="sidebar-label">Quick questions</span>
           {FAQ.map((q) => (
-            <button
-              key={q}
-              className="faq-btn"
-              onClick={() => sendQuery(q)}
-              disabled={streaming}
-            >
+            <button key={q} className="faq-btn" onClick={() => sendQuery(q)} disabled={streaming}>
               {q}
             </button>
           ))}
@@ -875,7 +896,9 @@ export default function App() {
         {/* ── Chat column ── */}
         <div className="chat-col">
           <div className="hero">
-            <h1><mark>Ask</mark> me anything</h1>
+            <h1>
+              <mark>Ask</mark> me anything
+            </h1>
             <p>Your personal AI, powered by Jalin's knowledge base.</p>
           </div>
           <div className="divider" />
@@ -892,9 +915,7 @@ export default function App() {
 
             {messages.map((m) => (
               <div key={m.id} className={`msg-row ${m.role}`}>
-                <span className={`label ${m.role}`}>
-                  {m.role === "user" ? "You" : "AI"}
-                </span>
+                <span className={`label ${m.role}`}>{m.role === "user" ? "You" : "AI"}</span>
                 <div className={`bubble ${m.role}`}>
                   {m.role === "assistant" ? (
                     m.content ? (
@@ -902,15 +923,19 @@ export default function App() {
                         remarkPlugins={[remarkGfm]}
                         components={{
                           a: ({ href, children }) => (
-                            <a href={href} target="_blank" rel="noopener noreferrer">{children}</a>
+                            <a href={href} target="_blank" rel="noopener noreferrer">
+                              {children}
+                            </a>
                           ),
                         }}
-                      >{m.content}</ReactMarkdown>
+                      >
+                        {m.content}
+                      </ReactMarkdown>
                     ) : (
                       <span className="cursor" />
                     )
                   ) : (
-                    <span style={{ whiteSpace: 'pre-wrap' }}>{m.content}</span>
+                    <span style={{ whiteSpace: "pre-wrap" }}>{m.content}</span>
                   )}
                 </div>
               </div>
@@ -934,13 +959,16 @@ export default function App() {
                   disabled={streaming}
                 />
               </div>
-              <button className="btn btn-send" onClick={sendMessage} disabled={streaming || !input.trim()}>
+              <button
+                className="btn btn-send"
+                onClick={sendMessage}
+                disabled={streaming || !input.trim()}
+              >
                 ↑
               </button>
             </div>
           </div>
         </div>
-
       </div>
     </>
   );
