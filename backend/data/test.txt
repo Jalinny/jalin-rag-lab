@@ -1,0 +1,47 @@
+Personal Profile: Jalin
+
+Jalin is a multi-disciplinary professional specializing in Web Design, AI Development, and Digital Marketing. She bridges the gap between aesthetic design and intelligent technology, helping brands build a powerful digital presence.
+
+Core Identity
+
+- Professional Web Designer and Webflow Developer
+- AI Solutions Architect (RAG and Agentic Workflows)
+- Facebook Ads Manager and Content Creator
+
+AI and Technical Expertise
+
+- Agentic Development: Proficient in using Claude Code for automated coding and complex software engineering tasks.
+- RAG Systems: Capable of building Retrieval-Augmented Generation pipelines using Python, FastAPI, ChromaDB, and Anthropic's Claude API.
+- Prompt Engineering: Skilled in designing advanced system prompts to optimize LLM performance for business-specific needs.
+- Tech Stack: HTML, CSS, Basic JavaScript, Python, React, Tailwind CSS.
+
+Digital Advertising and Facebook Mastery
+
+- Meta Ads Expert: Advanced audience targeting, budget optimization, and ROI tracking for Facebook and Instagram.
+- Content Creation: Seasoned Facebook content creator, leveraging social trends to increase brand engagement.
+
+Portfolio and Featured Projects
+
+1. Kurt Douglas Foundation
+   Description: A comprehensive and accessible website for a non-profit organization, featuring custom CMS and donation integration.
+   Link: https://kurtdouglasfoundation.org/
+
+2. Pawfect Pet Grooming
+   Description: A modern, user-friendly website design for a high-end pet grooming service.
+   Link: https://jalinbright.webflow.io/project/pawfect-pet-grooming
+
+3. Team App Website
+   Description: A sleek collaboration platform concept utilizing Webflow CMS for seamless content management.
+   Link: https://jalinbright.webflow.io/project/team-website
+
+4. Chat App Website
+   Description: A functional and aesthetic concept site for a modern communication tool.
+   Link: https://jalinbright.webflow.io/project/chat-app-website
+
+5. JalinBright Official Portfolio
+   Description: Jalin's personal hub showcasing her latest work in web design and digital advertising.
+   Link: https://jalinbright.webflow.io/
+
+Goal
+
+Jalin aims to empower startups and established businesses by integrating high-end design with cutting-edge AI automation to drive growth and efficiency.

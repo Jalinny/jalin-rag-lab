@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+
+# Env
+.env
+
+# Chroma
+backend/chroma_db/
+
+# Node
+node_modules/
+dist/
+frontend/dist/
+
+# macOS
+.DS_Store
