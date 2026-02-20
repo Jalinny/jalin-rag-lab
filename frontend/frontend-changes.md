@@ -51,3 +51,38 @@ Reformatted by Prettier for consistency:
 - Long type annotations broken across lines
 
 No logic changes were made.
+
+---
+
+## Light / Dark Theme Toggle
+
+### Modified Files
+
+#### `src/App.tsx`
+
+Added a light/dark theme toggle button to the header.
+
+**State & effect:**
+- New `darkMode` state initialized from `localStorage` (`rl_theme` key)
+- `useEffect` applies/removes the `dark` class on `document.body` and persists the preference to `localStorage` on every toggle
+
+**CSS — dark mode variables (`body.dark`):**
+| Variable    | Light value | Dark value |
+|-------------|-------------|------------|
+| `--bg`      | `#e8d5b5`   | `#141414`  |
+| `--surface` | `#f5ece0`   | `#1c1c1c`  |
+| `--border`  | `#1a1a1a`   | `#383838`  |
+| `--text`    | `#1a1a1a`   | `#e0d0bc`  |
+| `--muted`   | `#6b5f50`   | `#7a6e60`  |
+| `--yellow`  | `#f0e040`   | `#f0e040`  |
+| `--black`   | `#111111`   | `#0d0d0d`  |
+| `--white`   | `#faf5ee`   | `#2a2520`  |
+
+**CSS — `.btn-theme`:**
+- Small bordered icon button matching the existing `.btn-logout` style
+- Displays `☽` in light mode, `☀` in dark mode
+- Hover transitions color and border to full `--text` / `--border`
+
+**Header JSX:**
+- `<button class="btn-theme">` inserted between the status indicator and the sign-out button
+- `title` attribute updates to reflect current mode for accessibility

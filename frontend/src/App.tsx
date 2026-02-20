@@ -124,6 +124,7 @@ const STYLES = `
     gap: 16px;
     background: var(--bg);
     overflow: visible;
+    isolation: isolate;
   }
   .sidebar-label {
     font-family: 'Mulish', sans-serif;
@@ -150,16 +151,27 @@ const STYLES = `
     padding: 13px 14px;
     text-align: center;
     cursor: pointer;
-    box-shadow: 4px 4px 0 0 var(--bg), 4px 4px 0 2px var(--border);
-    transition: background 0.15s ease, transform 0.22s ease-out, box-shadow 0.22s ease-out;
+    transition: background 0.15s ease, transform 0.28s cubic-bezier(0.34,1.56,0.64,1), color 0.15s ease;
   }
-  .new-chat-btn:hover {
+  .new-chat-btn-wrap {
+    position: relative;
+  }
+  .new-chat-btn-wrap::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 2px solid var(--border);
+    background: transparent;
+    transform: translate(8px, 8px);
+    z-index: -1;
+    transition: transform 0.28s cubic-bezier(0.34,1.56,0.64,1);
+  }
+.new-chat-btn:hover {
     background: var(--surface);
   }
   .new-chat-btn:active {
-    transform: translate(4px, 4px);
-    box-shadow: 0px 0px 0 0 var(--bg), 0px 0px 0 2px var(--border);
-    transition: background 0.05s, transform 0.06s ease-in, box-shadow 0.06s ease-in;
+    transform: translate(8px, 8px);
+    transition: background 0.05s, transform 0.08s ease, color 0.08s ease;
   }
   .sidebar-divider {
     height: 1.5px;
@@ -169,7 +181,6 @@ const STYLES = `
   }
   .faq-btn {
     position: relative;
-    z-index: 0;
     width: 100%;
     background: var(--black);
     color: var(--white);
@@ -185,7 +196,10 @@ const STYLES = `
     cursor: pointer;
     transition: background 0.15s ease, transform 0.22s ease-out;
   }
-  .faq-btn::after {
+  .faq-btn-wrap {
+    position: relative;
+  }
+  .faq-btn-wrap::after {
     content: '';
     position: absolute;
     inset: 0;
@@ -193,22 +207,24 @@ const STYLES = `
     background: transparent;
     transform: translate(7px, 7px);
     z-index: -1;
-    transition: transform 0.22s ease-out;
+    transition: transform 0.22s ease-out, opacity 0.15s ease;
   }
-  .faq-btn:hover:not(:disabled) {
+  .faq-btn-wrap:has(.faq-btn:disabled)::after {
+    opacity: 0.4;
+  }
+.faq-btn:hover:not(:disabled) {
     background: #2a2a2a;
   }
   .faq-btn:active:not(:disabled) {
     transform: translate(7px, 7px);
     transition: background 0.05s, transform 0.06s ease-in;
   }
-  .faq-btn:active:not(:disabled)::after {
-    transform: translate(0, 0);
-    transition: transform 0.06s ease-in;
-  }
   .faq-btn:disabled {
     opacity: 0.4;
     cursor: not-allowed;
+  }
+  .faq-btn--loading:disabled {
+    opacity: 0.6;
   }
 
   /* ── Chat column ── */
@@ -543,7 +559,7 @@ const STYLES = `
   .login-subtitle {
     font-size: 12px;
     color: var(--muted);
-    margin-top: -14px;
+    margin-top: 6px;
     font-weight: 400;
     line-height: 1.6;
   }
@@ -635,6 +651,132 @@ const STYLES = `
     color: var(--text);
     border-color: var(--border);
   }
+
+  /* Theme toggle button */
+  .btn-theme {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    color: var(--muted);
+    border: 1.5px solid var(--muted);
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 0;
+    flex-shrink: 0;
+    transition: color 0.2s, border-color 0.2s, background 0.2s, transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+  }
+
+  .btn-theme:hover {
+    color: var(--text);
+    border-color: var(--border);
+    background: var(--surface);
+    transform: rotate(22deg) scale(1.1);
+  }
+
+  /* ── Dark mode ── */
+  body.dark {
+    --bg:      #0c0c0a;
+    --surface: #161512;
+    --border:  #3c3a34;
+    --text:    #f8edd8;
+    --muted:   #c8b89a;
+    --yellow:  #f5e030;
+    --black:   #252218;
+    --white:   #f8edd8;
+  }
+
+  /* new-chat-btn: warm parchment CTA in dark mode */
+  body.dark .new-chat-btn {
+    background: #c8b898;
+    color: #1a1610;
+    border-color: #8a7860;
+  }
+  body.dark .new-chat-btn-wrap::after {
+    border-color: #8a7860;
+    background: var(--border);
+  }
+  body.dark .new-chat-btn:hover { background: var(--yellow); color: #0c0c0a; }
+
+  /* input area surface */
+  body.dark .input-wrap {
+    background: #1e1c16;
+    border-color: #3c3a34;
+    box-shadow: 3px 3px 0 0 #3c3a34;
+  }
+
+  /* scrollbar */
+  body.dark .messages { scrollbar-color: #3c3a34 transparent; }
+  body.dark .messages::-webkit-scrollbar-thumb { background: #3c3a34; }
+
+  /* user bubble shadow */
+  body.dark .bubble.user { box-shadow: 4px 4px 0 0 #3c3a34; }
+
+  /* table cells */
+  body.dark .bubble.assistant td { background: #1e1c16; }
+  body.dark .bubble.assistant tr:nth-child(even) td { background: #161512; }
+
+  /* code blocks */
+  body.dark .bubble.assistant code {
+    background: #1e1c16;
+    border-color: #3c3a34;
+  }
+  body.dark .bubble.assistant pre {
+    background: #1e1c16;
+    border-color: #3c3a34;
+  }
+
+  /* toolbar */
+  body.dark .toolbar-wrap { background: #0c0c0a; }
+
+  /* notice */
+  body.dark .notice { background: #161512; border-color: #3c3a34; }
+
+  /* "Ask" mark + RAG Lab tag — dark text on bright yellow */
+  body.dark .hero h1 mark {
+    background: var(--yellow);
+    color: #0c0c0a;
+  }
+  body.dark .header-tag {
+    background: var(--yellow);
+    color: #0c0c0a;
+  }
+
+  /* FAQ buttons — refined lifted surface */
+  body.dark .faq-btn {
+    background: #272318;
+    border-color: #5e5644;
+    color: #f8edd8;
+  }
+  body.dark .faq-btn-wrap::after {
+    border-color: #5e5644;
+  }
+  body.dark .faq-btn:hover:not(:disabled) {
+    background: var(--yellow);
+    color: #0c0c0a;
+  }
+  body.dark .faq-btn--loading:disabled {
+    background: rgba(245, 224, 48, 0.2);
+    opacity: 1;
+  }
+
+  /* Ingest button — visible on dark toolbar */
+  body.dark .btn-ingest {
+    background: #2c2820;
+    border-color: #5a5445;
+    box-shadow: 3px 3px 0 0 #5a5445;
+  }
+  body.dark .btn-ingest:hover:not(:disabled) {
+    background: var(--yellow);
+    color: #0c0c0a;
+  }
+
+  /* Send button — brighter shadow */
+  body.dark .btn-send {
+    box-shadow: 3px 3px 0 0 #5a5445;
+  }
 `;
 
 function uid() {
@@ -711,15 +853,22 @@ function LoginScreen({ onLogin }: { onLogin: () => void }) {
 
 export default function App() {
   const [authed, setAuthed] = useState(() => localStorage.getItem("rl_auth") === "1");
+  const [darkMode, setDarkMode] = useState(() => localStorage.getItem("rl_theme") === "dark");
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [streaming, setStreaming] = useState(false);
+  const [activeFaq, setActiveFaq] = useState<string | null>(null);
   const [notice, setNotice] = useState<{ text: string; type: "success" | "error" | "info" } | null>(
     null
   );
   const bottomRef = useRef<HTMLDivElement>(null);
   const streamingIdRef = useRef<string | null>(null);
   const abortControllerRef = useRef<AbortController | null>(null);
+
+  useEffect(() => {
+    document.body.classList.toggle("dark", darkMode);
+    localStorage.setItem("rl_theme", darkMode ? "dark" : "light");
+  }, [darkMode]);
 
   function logout() {
     localStorage.removeItem("rl_auth");
@@ -797,6 +946,7 @@ export default function App() {
     } finally {
       abortControllerRef.current = null;
       setStreaming(false);
+      setActiveFaq(null);
       streamingIdRef.current = null;
     }
   }
@@ -872,6 +1022,31 @@ export default function App() {
             <div className="status-dot" />
             online
           </div>
+          <button
+            className="btn-theme"
+            onClick={() => setDarkMode((d) => !d)}
+            title={darkMode ? "Switch to light mode" : "Switch to dark mode"}
+          >
+            {darkMode ? (
+              // Sun — shown in dark mode
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+                <circle cx="12" cy="12" r="4.5" />
+                <line x1="12" y1="2"    x2="12" y2="4.5"  />
+                <line x1="12" y1="19.5" x2="12" y2="22"   />
+                <line x1="2"  y1="12"   x2="4.5"  y2="12" />
+                <line x1="19.5" y1="12" x2="22"   y2="12" />
+                <line x1="4.93" y1="4.93" x2="6.7"  y2="6.7"  />
+                <line x1="17.3" y1="17.3" x2="19.07" y2="19.07" />
+                <line x1="19.07" y1="4.93" x2="17.3"  y2="6.7"  />
+                <line x1="6.7"   y1="17.3" x2="4.93"  y2="19.07" />
+              </svg>
+            ) : (
+              // Moon — shown in light mode
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z" />
+              </svg>
+            )}
+          </button>
           <button className="btn-logout" onClick={logout}>
             Sign out
           </button>
@@ -881,15 +1056,19 @@ export default function App() {
       <div className="main-layout">
         {/* ── Sidebar ── */}
         <aside className="sidebar">
-          <button className="new-chat-btn" onClick={newChat}>
-            + New Chat
-          </button>
+          <div className="new-chat-btn-wrap">
+            <button className="new-chat-btn" onClick={newChat}>
+              + New Chat
+            </button>
+          </div>
           <div className="sidebar-divider" />
           <span className="sidebar-label">Quick questions</span>
           {FAQ.map((q) => (
-            <button key={q} className="faq-btn" onClick={() => sendQuery(q)} disabled={streaming}>
-              {q}
-            </button>
+            <div key={q} className="faq-btn-wrap">
+              <button className={`faq-btn${activeFaq === q ? " faq-btn--loading" : ""}`} onClick={() => { setActiveFaq(q); sendQuery(q); }} disabled={streaming}>
+                {q}
+              </button>
+            </div>
           ))}
         </aside>
 
