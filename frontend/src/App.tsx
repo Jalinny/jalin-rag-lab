@@ -648,8 +648,9 @@ const STYLES = `
   }
 
   .btn-logout:hover {
-    color: var(--text);
-    border-color: var(--border);
+    color: var(--bg);
+    border-color: var(--text);
+    background: var(--text);
   }
 
   /* Theme toggle button */
