@@ -644,12 +644,13 @@ const STYLES = `
     border-radius: 2px;
     padding: 4px 10px;
     cursor: pointer;
-    transition: color 0.15s, border-color 0.15s;
+    transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
   }
 
   .btn-logout:hover {
-    color: var(--text);
-    border-color: var(--border);
+    color: var(--bg);
+    background: var(--text);
+    border-color: var(--text);
   }
 
   /* Theme toggle button */
