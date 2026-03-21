@@ -1,12 +1,20 @@
 import os
+import sys
+
+print(f"Python {sys.version}", flush=True)
+print("Starting FastAPI app...", flush=True)
 
 from fastapi import FastAPI, Header, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 
+print("FastAPI imported OK", flush=True)
+
 from app.ingest import ingest_documents, list_sources
 from app.rag import retrieve_and_stream
+
+print("App modules imported OK", flush=True)
 
 app = FastAPI(title="jalin-rag-lab")
 
