@@ -27,7 +27,7 @@ class ChatRequest(BaseModel):
     query: str
 
 
-@app.get("/health")
+@app.get("/api/health")
 def health():
     return {"status": "ok"}
 
@@ -35,7 +35,7 @@ def health():
 _INGEST_SECRET = os.getenv("INGEST_SECRET", "")
 
 
-@app.post("/ingest")
+@app.post("/api/ingest")
 def ingest(authorization: str = Header(default="")):
     if not _INGEST_SECRET or authorization != f"Bearer {_INGEST_SECRET}":
         raise HTTPException(status_code=401, detail="Unauthorized")
@@ -43,12 +43,12 @@ def ingest(authorization: str = Header(default="")):
     return result
 
 
-@app.get("/documents")
+@app.get("/api/documents")
 def documents():
     return {"sources": list_sources()}
 
 
-@app.post("/chat")
+@app.post("/api/chat")
 def chat(req: ChatRequest):
     if not req.query.strip():
         raise HTTPException(status_code=400, detail="query must not be empty")
