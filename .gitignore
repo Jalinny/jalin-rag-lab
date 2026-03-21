@@ -9,7 +9,7 @@ venv/
 .env
 
 # Chroma
-backend/chroma_db/
+# backend/chroma_db/
 
 # Node
 node_modules/

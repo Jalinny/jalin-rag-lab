@@ -3,6 +3,8 @@ import { MarkdownHooks as ReactMarkdown } from "react-markdown";
 import remarkGfm from "remark-gfm";
 import type { Message } from "./types";
 
+const API_BASE = import.meta.env.VITE_API_URL || "";
+
 const FAQ = ["Who is Jalin?", "What I do?", "Explore My Work", "Skills Overview", "Want to Work?"];
 
 // Hardcoded credentials — frontend-only auth gate for this personal demo
@@ -911,7 +913,7 @@ export default function App() {
     abortControllerRef.current = controller;
 
     try {
-      const res = await fetch("/api/chat", {
+      const res = await fetch(`${API_BASE}/api/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ query }),
@@ -962,7 +964,7 @@ export default function App() {
   async function triggerIngest() {
     showNotice("Ingesting documents...", "info");
     try {
-      const res = await fetch("/api/ingest", { method: "POST" });
+      const res = await fetch(`${API_BASE}/api/ingest`, { method: "POST" });
       const data = await res.json();
       if (data.status === "no_documents") {
         showNotice("No documents found in backend/data/", "error");

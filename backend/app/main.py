@@ -1,4 +1,6 @@
-from fastapi import FastAPI, HTTPException
+import os
+
+from fastapi import FastAPI, Header, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
@@ -10,7 +12,12 @@ app = FastAPI(title="jalin-rag-lab")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=[
+        "http://localhost:5173",
+        "http://localhost:4173",
+        "https://www.jalinbright.com",
+        "https://jalinbright.com",
+    ],
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -25,8 +32,13 @@ def health():
     return {"status": "ok"}
 
 
+_INGEST_SECRET = os.getenv("INGEST_SECRET", "")
+
+
 @app.post("/ingest")
-def ingest():
+def ingest(authorization: str = Header(default="")):
+    if not _INGEST_SECRET or authorization != f"Bearer {_INGEST_SECRET}":
+        raise HTTPException(status_code=401, detail="Unauthorized")
     result = ingest_documents()
     return result
 
