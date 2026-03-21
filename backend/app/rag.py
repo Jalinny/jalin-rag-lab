@@ -3,8 +3,6 @@ RAG chain: retrieve relevant chunks from Chroma, then stream a Claude response.
 """
 
 import anthropic
-from langchain_community.embeddings import HuggingFaceEmbeddings
-from langchain_community.vectorstores import Chroma
 
 from app.config import (
     ANTHROPIC_API_KEY,
@@ -14,6 +12,22 @@ from app.config import (
     RETRIEVAL_K,
 )
 from app.search_tools import TOOLS, execute_tool
+
+# Module-level cache — populated by initialize_rag() in the lifespan hook
+_embeddings = None
+_db = None
+
+
+def initialize_rag():
+    """Load the embedding model and ChromaDB. Called after uvicorn binds the port."""
+    global _embeddings, _db
+    from langchain_community.embeddings import HuggingFaceEmbeddings
+    from langchain_community.vectorstores import Chroma
+    print("Loading embedding model...", flush=True)
+    _embeddings = HuggingFaceEmbeddings(model_name=EMBED_MODEL)
+    print("Connecting to ChromaDB...", flush=True)
+    _db = Chroma(persist_directory=CHROMA_PATH, embedding_function=_embeddings)
+    print("RAG initialized.", flush=True)
 
 _SYSTEM_PROMPT = """\
 You are Jalin's portfolio assistant. Answer using ONLY the provided context.
@@ -114,9 +128,10 @@ def retrieve_and_stream(query: str):
        - stop_reason == "end_turn": yield text blocks from response directly.
        - stop_reason == "tool_use" (cap hit): stream a final synthesis call.
     """
-    embeddings = HuggingFaceEmbeddings(model_name=EMBED_MODEL)
-    db = Chroma(persist_directory=CHROMA_PATH, embedding_function=embeddings)
-    docs = db.similarity_search(query, k=RETRIEVAL_K)
+    # Fall back to lazy init if lifespan hasn't run (e.g. local dev without lifespan)
+    if _db is None:
+        initialize_rag()
+    docs = _db.similarity_search(query, k=RETRIEVAL_K)
 
     if not docs:
         yield "No relevant documents found in the knowledge base."

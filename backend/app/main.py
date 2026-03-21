@@ -1,22 +1,26 @@
 import os
 import sys
-
-print(f"Python {sys.version}", flush=True)
-print("Starting FastAPI app...", flush=True)
+from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, Header, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 
-print("FastAPI imported OK", flush=True)
-
 from app.ingest import ingest_documents, list_sources
-from app.rag import retrieve_and_stream
+from app.rag import initialize_rag, retrieve_and_stream
 
-print("App modules imported OK", flush=True)
 
-app = FastAPI(title="jalin-rag-lab")
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Runs after uvicorn binds the port — safe to load heavy resources here
+    print(f"Python {sys.version}", flush=True)
+    print("Port bound. Loading RAG resources...", flush=True)
+    initialize_rag()
+    yield
+
+
+app = FastAPI(title="jalin-rag-lab", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,

@@ -2,8 +2,6 @@
 Tool definitions and execution logic for Claude tool use.
 """
 
-from langchain_community.embeddings import HuggingFaceEmbeddings
-from langchain_community.vectorstores import Chroma
 from app.config import CHROMA_PATH, EMBED_MODEL
 
 
@@ -36,6 +34,8 @@ TOOLS = [
 
 
 def _get_project_details(project_title: str) -> str:
+    from langchain_community.embeddings import HuggingFaceEmbeddings
+    from langchain_community.vectorstores import Chroma
     embeddings = HuggingFaceEmbeddings(model_name=EMBED_MODEL)
     db = Chroma(persist_directory=CHROMA_PATH, embedding_function=embeddings)
     docs = db.similarity_search(project_title, k=3)

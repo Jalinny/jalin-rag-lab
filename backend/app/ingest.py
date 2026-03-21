@@ -7,15 +7,11 @@ Supported file types: .pdf, .txt, .md
 import os
 from pathlib import Path
 
-from langchain_community.document_loaders import PyPDFLoader, TextLoader
-from langchain_community.embeddings import HuggingFaceEmbeddings
-from langchain_community.vectorstores import Chroma
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-
 from app.config import CHROMA_PATH, DATA_PATH, EMBED_MODEL, CHUNK_SIZE, CHUNK_OVERLAP
 
 
 def _load_documents(data_path: str) -> list:
+    from langchain_community.document_loaders import PyPDFLoader, TextLoader
     docs = []
     for fpath in Path(data_path).rglob("*"):
         if fpath.suffix == ".pdf":
@@ -29,6 +25,10 @@ def _load_documents(data_path: str) -> list:
 
 
 def ingest_documents() -> dict:
+    from langchain_community.embeddings import HuggingFaceEmbeddings
+    from langchain_community.vectorstores import Chroma
+    from langchain.text_splitter import RecursiveCharacterTextSplitter
+
     docs = _load_documents(DATA_PATH)
     if not docs:
         return {"status": "no_documents", "chunks": 0}
@@ -56,6 +56,8 @@ def ingest_documents() -> dict:
 
 
 def list_sources() -> list[str]:
+    from langchain_community.embeddings import HuggingFaceEmbeddings
+    from langchain_community.vectorstores import Chroma
     embeddings = HuggingFaceEmbeddings(model_name=EMBED_MODEL)
     try:
         db = Chroma(persist_directory=CHROMA_PATH, embedding_function=embeddings)
