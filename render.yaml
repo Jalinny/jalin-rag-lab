@@ -11,6 +11,4 @@ services:
         sync: false
       - key: INGEST_SECRET
         sync: false
-      - key: VOYAGE_API_KEY
-        sync: false
     plan: free

@@ -8,9 +8,7 @@ from app.config import (
     ANTHROPIC_API_KEY,
     CHROMA_PATH,
     CLAUDE_MODEL,
-    EMBED_MODEL,
     RETRIEVAL_K,
-    VOYAGE_API_KEY,
 )
 from app.search_tools import TOOLS, execute_tool
 
@@ -20,12 +18,12 @@ _db = None
 
 
 def initialize_rag():
-    """Connect to ChromaDB with Voyage AI embeddings. Called lazily on first request."""
+    """Connect to ChromaDB with ONNX embeddings. Called lazily on first request."""
     global _embeddings, _db
-    from langchain_voyageai import VoyageAIEmbeddings
     from langchain_community.vectorstores import Chroma
-    print("Initializing Voyage AI embeddings...", flush=True)
-    _embeddings = VoyageAIEmbeddings(model=EMBED_MODEL, api_key=VOYAGE_API_KEY)
+    from app.embeddings import OnnxEmbeddings
+    print("Initializing ONNX embeddings...", flush=True)
+    _embeddings = OnnxEmbeddings()
     print("Connecting to ChromaDB...", flush=True)
     _db = Chroma(persist_directory=CHROMA_PATH, embedding_function=_embeddings)
     print("RAG initialized.", flush=True)
