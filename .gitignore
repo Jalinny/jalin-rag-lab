@@ -8,8 +8,8 @@ venv/
 # Env
 .env
 
-# Chroma
-# backend/chroma_db/
+# Chroma — built at deploy time, never committed
+backend/chroma_db/
 
 # Node
 node_modules/
