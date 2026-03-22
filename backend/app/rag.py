@@ -142,22 +142,25 @@ def retrieve_and_stream(query: str):
     messages = [{"role": "user", "content": user_message}]
 
     client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
-    response = None
 
     for _ in range(MAX_ROUNDS):
-        response = client.messages.create(
+        # Stream so the first token reaches the client immediately
+        with client.messages.stream(
             model=CLAUDE_MODEL,
             max_tokens=4096,
             system=_SYSTEM_PROMPT,
             tools=TOOLS,
             messages=messages,
-        )
+        ) as stream:
+            for text in stream.text_stream:
+                yield text
+            final = stream.get_final_message()
 
-        if response.stop_reason != "tool_use":
-            break  # Claude finished — exit the loop
+        if final.stop_reason != "tool_use":
+            return  # Done — all text already streamed
 
         # Execute every tool call, isolating errors per call
-        tool_use_blocks = [b for b in response.content if b.type == "tool_use"]
+        tool_use_blocks = [b for b in final.content if b.type == "tool_use"]
         tool_result_blocks = []
         for b in tool_use_blocks:
             try:
@@ -176,23 +179,16 @@ def retrieve_and_stream(query: str):
                 })
 
         messages = messages + [
-            {"role": "assistant", "content": response.content},
+            {"role": "assistant", "content": final.content},
             {"role": "user", "content": tool_result_blocks},
         ]
 
-    # Deliver the final answer
-    if response.stop_reason == "tool_use":
-        # Round cap hit — force a streaming synthesis from accumulated context
-        with client.messages.stream(
-            model=CLAUDE_MODEL,
-            max_tokens=4096,
-            system=_SYSTEM_PROMPT,
-            messages=messages,
-        ) as stream:
-            for text in stream.text_stream:
-                yield text
-    else:
-        # Claude ended naturally — yield text from the response we already have
-        for block in response.content:
-            if block.type == "text":
-                yield block.text
+    # Round cap hit — force a final streaming synthesis
+    with client.messages.stream(
+        model=CLAUDE_MODEL,
+        max_tokens=4096,
+        system=_SYSTEM_PROMPT,
+        messages=messages,
+    ) as stream:
+        for text in stream.text_stream:
+            yield text
