@@ -112,27 +112,15 @@ MAX_ROUNDS = 2
 
 
 def retrieve_and_stream(query: str):
-    """Yield text chunks from Claude as a generator (for SSE).
-
-    Supports up to MAX_ROUNDS of sequential tool calling before forcing
-    a final synthesis. Tool results are accumulated in the message history
-    so Claude has full context across all rounds.
-
-    Flow:
-    1. Broad Chroma retrieval (k=RETRIEVAL_K) for initial context.
-    2. Loop up to MAX_ROUNDS:
-       a. Non-streaming Claude call with tools registered.
-       b. stop_reason == "end_turn": break — Claude is done.
-       c. stop_reason == "tool_use": execute each tool (catching errors
-          individually), append assistant + tool_result turns, continue.
-    3. Deliver the final answer:
-       - stop_reason == "end_turn": yield text blocks from response directly.
-       - stop_reason == "tool_use" (cap hit): stream a final synthesis call.
-    """
-    # Fall back to lazy init if lifespan hasn't run (e.g. local dev without lifespan)
-    if _db is None:
-        initialize_rag()
-    docs = _db.similarity_search(query, k=RETRIEVAL_K)
+    """Yield text chunks from Claude as a generator (for SSE)."""
+    try:
+        if _db is None:
+            initialize_rag()
+        docs = _db.similarity_search(query, k=RETRIEVAL_K)
+    except Exception as exc:
+        print(f"RAG init/retrieval error: {exc}", flush=True)
+        yield f"Error initializing knowledge base: {exc}"
+        return
 
     if not docs:
         yield "No relevant documents found in the knowledge base."
@@ -142,54 +130,57 @@ def retrieve_and_stream(query: str):
     user_message = f"Context:\n{context}\n\nQuestion: {query}"
     messages = [{"role": "user", "content": user_message}]
 
-    client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
+    try:
+        client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
 
-    for _ in range(MAX_ROUNDS):
-        # Stream so the first token reaches the client immediately
+        for _ in range(MAX_ROUNDS):
+            with client.messages.stream(
+                model=CLAUDE_MODEL,
+                max_tokens=4096,
+                system=_SYSTEM_PROMPT,
+                tools=TOOLS,
+                messages=messages,
+            ) as stream:
+                for text in stream.text_stream:
+                    yield text
+                final = stream.get_final_message()
+
+            if final.stop_reason != "tool_use":
+                return
+
+            tool_use_blocks = [b for b in final.content if b.type == "tool_use"]
+            tool_result_blocks = []
+            for b in tool_use_blocks:
+                try:
+                    result_content = execute_tool(b.name, b.input)
+                    tool_result_blocks.append({
+                        "type": "tool_result",
+                        "tool_use_id": b.id,
+                        "content": result_content,
+                    })
+                except Exception as exc:
+                    tool_result_blocks.append({
+                        "type": "tool_result",
+                        "tool_use_id": b.id,
+                        "content": f"Tool execution failed: {exc}",
+                        "is_error": True,
+                    })
+
+            messages = messages + [
+                {"role": "assistant", "content": final.content},
+                {"role": "user", "content": tool_result_blocks},
+            ]
+
+        # Round cap hit — force a final streaming synthesis
         with client.messages.stream(
             model=CLAUDE_MODEL,
             max_tokens=4096,
             system=_SYSTEM_PROMPT,
-            tools=TOOLS,
             messages=messages,
         ) as stream:
             for text in stream.text_stream:
                 yield text
-            final = stream.get_final_message()
 
-        if final.stop_reason != "tool_use":
-            return  # Done — all text already streamed
-
-        # Execute every tool call, isolating errors per call
-        tool_use_blocks = [b for b in final.content if b.type == "tool_use"]
-        tool_result_blocks = []
-        for b in tool_use_blocks:
-            try:
-                result_content = execute_tool(b.name, b.input)
-                tool_result_blocks.append({
-                    "type": "tool_result",
-                    "tool_use_id": b.id,
-                    "content": result_content,
-                })
-            except Exception as exc:
-                tool_result_blocks.append({
-                    "type": "tool_result",
-                    "tool_use_id": b.id,
-                    "content": f"Tool execution failed: {exc}",
-                    "is_error": True,
-                })
-
-        messages = messages + [
-            {"role": "assistant", "content": final.content},
-            {"role": "user", "content": tool_result_blocks},
-        ]
-
-    # Round cap hit — force a final streaming synthesis
-    with client.messages.stream(
-        model=CLAUDE_MODEL,
-        max_tokens=4096,
-        system=_SYSTEM_PROMPT,
-        messages=messages,
-    ) as stream:
-        for text in stream.text_stream:
-            yield text
+    except Exception as exc:
+        print(f"Claude streaming error: {exc}", flush=True)
+        yield f"Error generating response: {exc}"
