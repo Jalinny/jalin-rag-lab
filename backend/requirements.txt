@@ -6,6 +6,7 @@ langchain-community
 langchain-anthropic
 langchain-voyageai
 chromadb
+PyYAML==6.0.2
 pypdf
 python-dotenv
 pytest
