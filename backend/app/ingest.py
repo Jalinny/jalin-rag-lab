@@ -7,7 +7,7 @@ Supported file types: .pdf, .txt, .md
 import os
 from pathlib import Path
 
-from app.config import CHROMA_PATH, DATA_PATH, EMBED_MODEL, CHUNK_SIZE, CHUNK_OVERLAP
+from app.config import CHROMA_PATH, DATA_PATH, EMBED_MODEL, CHUNK_SIZE, CHUNK_OVERLAP, VOYAGE_API_KEY
 
 
 def _load_documents(data_path: str) -> list:
@@ -25,7 +25,7 @@ def _load_documents(data_path: str) -> list:
 
 
 def ingest_documents() -> dict:
-    from langchain_community.embeddings import HuggingFaceEmbeddings
+    from langchain_voyageai import VoyageAIEmbeddings
     from langchain_community.vectorstores import Chroma
     from langchain.text_splitter import RecursiveCharacterTextSplitter
 
@@ -39,7 +39,7 @@ def ingest_documents() -> dict:
     )
     chunks = splitter.split_documents(docs)
 
-    embeddings = HuggingFaceEmbeddings(model_name=EMBED_MODEL)
+    embeddings = VoyageAIEmbeddings(model=EMBED_MODEL, api_key=VOYAGE_API_KEY)
 
     # Clear existing collection before re-ingesting to avoid duplicates
     existing = Chroma(persist_directory=CHROMA_PATH, embedding_function=embeddings)
@@ -56,9 +56,9 @@ def ingest_documents() -> dict:
 
 
 def list_sources() -> list[str]:
-    from langchain_community.embeddings import HuggingFaceEmbeddings
+    from langchain_voyageai import VoyageAIEmbeddings
     from langchain_community.vectorstores import Chroma
-    embeddings = HuggingFaceEmbeddings(model_name=EMBED_MODEL)
+    embeddings = VoyageAIEmbeddings(model=EMBED_MODEL, api_key=VOYAGE_API_KEY)
     try:
         db = Chroma(persist_directory=CHROMA_PATH, embedding_function=embeddings)
         items = db.get(include=["metadatas"])

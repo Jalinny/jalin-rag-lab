@@ -4,8 +4,8 @@ anthropic
 langchain
 langchain-community
 langchain-anthropic
+langchain-voyageai
 chromadb
-sentence-transformers
 pypdf
 python-dotenv
 pytest
