@@ -2,6 +2,7 @@ services:
   - type: web
     name: jalin-rag-backend
     runtime: python
+    pythonVersion: "3.11"
     rootDir: backend
     buildCommand: pip install -r requirements.txt
     startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
@@ -9,5 +10,7 @@ services:
       - key: ANTHROPIC_API_KEY
         sync: false
       - key: INGEST_SECRET
+        sync: false
+      - key: VOYAGE_API_KEY
         sync: false
     plan: free
