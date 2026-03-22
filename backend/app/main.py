@@ -18,11 +18,10 @@ app = FastAPI(title="jalin-rag-lab")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "http://localhost:5173",
-        "http://localhost:4173",
         "https://www.jalinbright.com",
         "https://jalinbright.com",
     ],
+    allow_origin_regex=r"http://localhost:\d+",
     allow_methods=["*"],
     allow_headers=["*"],
 )
