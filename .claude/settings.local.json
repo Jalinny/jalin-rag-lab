@@ -57,7 +57,8 @@
       "Bash(git rm:*)",
       "Bash(head -5 python3 -c \":*)",
       "Bash(grep -v \"^$\")",
-      "Bash(python:*)"
+      "Bash(python:*)",
+      "Bash(git:*)"
     ]
   },
   "hooks": {

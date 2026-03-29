@@ -60,7 +60,7 @@ def chat(req: ChatRequest):
     def event_stream():
         for chunk in retrieve_and_stream(req.query):
             # Escape newlines so SSE framing is never broken by content
-            safe = chunk.replace("\n", "\\n")
+            safe = chunk.replace("\n", "<br>")
             yield f"data: {safe}\n\n"
         yield "data: [DONE]\n\n"
 

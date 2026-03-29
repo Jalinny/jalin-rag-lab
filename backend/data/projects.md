@@ -2,26 +2,25 @@
 
 ## Project 01: jalinbright.com (Personal Portfolio)
 - URL: https://www.jalinbright.com
-- Stack: React 18 + Vite + FastAPI (backend on Render)
-- Description: My main portfolio site showcasing all my work
+- What it is: Jalin's own portfolio site — the one you're on right now.
+- Built with React + Vite on the frontend, with a FastAPI backend powering the AI chat assistant.
+- Shows what Jalin can build for you: fast, polished, and with real functionality.
 
 ## Project 02: Bright Futures Foundation
 - URL: https://project-02-bright-futures-foundation.vercel.app
-- Stack: React 18 + Vite + Tailwind CSS + React Router
-- Description: A children's nonprofit website featuring program showcases,
-  donation CTAs, board of directors, and fully responsive multi-page layout
+- What it is: A website for a children's nonprofit organization.
+- Features program showcases, donation call-to-actions, a board of directors section,
+  and a fully responsive multi-page layout.
+- Good example of: clean storytelling, multiple pages, and layouts that work on any device.
+- [View Project](https://project-02-bright-futures-foundation.vercel.app)
 
 ## Project 03: Pawfect Pet Grooming
 - URL: https://project-03-pawfect-pet-grooming.vercel.app
-- Stack: React 18 + Vite + Tailwind CSS + React Router
-- Description: A full pet grooming business website with 7 pages:
-  Homepage (hero, services, team, blog preview, contact sections),
-  Services page (4 service cards with FAQ accordion),
-  About Us page (4 team members with alternating layout),
-  Blog listing page (9 full articles with scroll-triggered animations),
-  Blog post pages (individual article pages with author, category tags),
-  Contact page (info cards, opening hours, contact form with success state),
-  Book page (4-step booking flow: service selection, pet details,
-  date/time picker, confirmation — with live summary sidebar).
-  Features include scroll-triggered entrance animations, hover effects,
-  orange hero banners across all pages, and a fully responsive mobile layout.
+- What it is: A complete website for a pet grooming business — built to attract and convert customers.
+- Includes 7 pages: homepage, services, about, blog, individual blog posts, contact, and booking.
+- The booking flow guides customers through 4 steps: pick a service, enter pet details,
+  choose a date and time, then confirm — with a live summary shown throughout.
+- Other highlights: scroll animations, mobile-friendly layout, FAQ section, team profiles,
+  and a contact form with success state.
+- Good example of: service business websites that actually help customers take action.
+- [View Project](https://project-03-pawfect-pet-grooming.vercel.app)

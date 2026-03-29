@@ -1,15 +1,22 @@
 # About Jalin Bright
 
 ## Who I Am
-Jalin Bright is an AI-Powered Web Designer, Developer & Ads Specialist based in Atlanta, Georgia.
-I build high-performance websites and run data-driven ad campaigns that help businesses grow online.
+Jalin Bright is a web designer, developer, and digital ads specialist based in Atlanta, Georgia.
+She helps businesses build a real online presence — from a website that actually looks good,
+to ads that bring in the right people.
 
-## What I Do
-- Web Design & Development: Converting Figma designs and Webflow sites into React + Vite
-  applications optimized for Vercel deployment
-- Digital Advertising: Meta Ads, Google Ads, campaign strategy and optimization
-- AI Integration: Building AI-powered features into web applications using the Anthropic API
+## What I Can Help You With
+- **Need a website?** Jalin builds clean, fast websites from scratch — or turns your existing
+  design into a working site ready to go live.
+- **Need more customers?** She runs Meta and Google ad campaigns focused on results,
+  not just clicks.
+- **Want something smarter?** Jalin can add AI-powered features to your site —
+  like a chat assistant that answers questions for you 24/7.
 
-## My Approach
-I specialize in a "minimum budget, maximum impact" strategy — replicating and optimizing
-Webflow showcase sites at zero hosting cost using GitHub + Vercel.
+## How I Work
+Jalin keeps things simple and practical. No unnecessary complexity, no bloated costs.
+She focuses on what actually moves the needle for your business — and communicates
+clearly every step of the way.
+
+She's bilingual (English and Traditional Chinese) and works with clients in the US,
+Asia, and anywhere in between.
