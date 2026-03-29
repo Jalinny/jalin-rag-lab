@@ -1,36 +1,30 @@
-# Jalin Bright — Experience & Background
+# Jalin Bright — Experience
 
-## Professional Focus
-AI-Powered Web Designer, Developer & Ads Specialist with expertise in
-converting design mockups into high-performance React applications and
-running data-driven digital advertising campaigns.
+## What Jalin Does
+Jalin helps businesses and individuals build their online presence —
+from websites and online stores, to paid ads and AI-powered features.
+She handles the whole process: design, development, and launch.
 
-## Key Experience Areas
+## Experience
 
-### Web Development
-- Specializes in Figma-to-code and Webflow-to-React conversions
-- Builds monorepo architectures with multiple standalone Vite apps
-- Deploys to Vercel with zero hosting cost strategy
-- Integrates FastAPI backends hosted on Render
+### Websites & Web Apps
+- Built multiple client and portfolio websites from scratch
+- Converts existing designs into real, working websites
+- Builds multi-page sites with booking systems, contact forms, and blogs
+- Every site is mobile-friendly and fast
 
 ### Digital Advertising
-- Meta Ads (Facebook & Instagram) campaign management
-- Google Ads strategy and optimization
-- Performance tracking and ROI analysis
-- Ad creative design and copywriting
+- Runs Facebook, Instagram, and Google ad campaigns
+- Creates ad visuals and copy
+- Tracks results and optimizes for better ROI
 
-### AI Development
-- Built a RAG-powered portfolio assistant using Claude, LangChain, and ChromaDB
-- Integrates Anthropic Claude API into web applications
-- Experience with streaming responses, tool use, and prompt engineering
-
-## Education & Self-Development
-- Continuously learning through building real client and portfolio projects
-- AI-first development approach — using Claude Code, Cowork, and other
-  AI tools as core parts of the development workflow
+### AI Features
+- Built an AI chat assistant for her own portfolio site
+- Adds AI-powered features to existing websites
+- Can build tools that automatically answer customer questions
 
 ## Work Style
-- Bilingual (English + Traditional Chinese)
-- Based in Atlanta, Georgia, USA
-- Available for freelance and contract work globally
-- Communicates in both English and Traditional Chinese (zh-TW)
+- Gets things done — clear communication, no unnecessary back-and-forth
+- Communicates in English and Chinese
+- Based in Atlanta, USA — works with clients worldwide
+- Available for freelance and contract projects

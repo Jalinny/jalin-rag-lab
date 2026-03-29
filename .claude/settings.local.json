@@ -58,7 +58,12 @@
       "Bash(head -5 python3 -c \":*)",
       "Bash(grep -v \"^$\")",
       "Bash(python:*)",
-      "Bash(git:*)"
+      "Bash(git:*)",
+      "Bash(rm:*)",
+      "Bash(ls ~/Downloads/*.md)",
+      "Bash(cp ~/Downloads/experience.md ~/Documents/GitHub/jalin-rag-lab/backend/data/experience.md)",
+      "Bash(cp ~/Downloads/faq.md ~/Documents/GitHub/jalin-rag-lab/backend/data/faq.md)",
+      "Bash(rm -rf ~/Documents/GitHub/jalin-rag-lab/backend/chroma_db)"
     ]
   },
   "hooks": {

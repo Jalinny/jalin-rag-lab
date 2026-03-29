@@ -1,15 +1,18 @@
 # Frequently Asked Questions about Jalin Bright
 
 ## Q: What services does Jalin offer?
-A: Jalin offers web design and development (React + Vite),
-Webflow to React migrations, Figma to code conversions,
-digital advertising (Meta + Google Ads), and AI feature integration.
+A: Jalin builds websites, online stores, and landing pages.
+She also runs Facebook, Instagram, and Google ad campaigns,
+and can add AI features like a chat assistant to your website.
 
-## Q: What is Jalin's tech stack?
-A: Frontend: React 18, Vite, Tailwind CSS, TypeScript.
-Backend: FastAPI, Python, deployed on Render.
-AI: Anthropic Claude API, LangChain, ChromaDB.
-Deployment: Vercel (frontend), Render (backend), GitHub (monorepo).
+## Q: What kind of websites can Jalin build?
+A: Any type — business websites, portfolios, nonprofit sites,
+service business sites with booking and contact forms, multi-page layouts,
+and sites converted from existing designs.
+
+## Q: Can Jalin work with my existing design?
+A: Yes. If you have a design in Figma, Webflow, or any other format,
+Jalin can turn it into a fully working website.
 
 ## Q: Where is Jalin based?
 A: Atlanta, Georgia, USA. Available for remote work globally.
@@ -18,19 +21,18 @@ A: Atlanta, Georgia, USA. Available for remote work globally.
 A: Email jalinbright@gmail.com or visit https://www.jalinbright.com
 
 ## Q: What makes Jalin different?
-A: Jalin combines web development with AI integration and digital advertising —
-a rare combination that lets clients get a modern website AND the marketing
-strategy to grow it, all from one person.
+A: Jalin does website design, development, ads, and AI features —
+all in one. You don't need to hire multiple people.
+She also communicates in both English and Chinese,
+which makes working together easier if that's your language.
 
 ## Q: Does Jalin work with clients outside the US?
-A: Yes. Jalin is bilingual (English and Traditional Chinese) and works
-with clients globally, including in the US, Asia, and elsewhere.
+A: Yes. She works with clients in the US, Asia, and anywhere in between.
 
 ## Q: What is Jalin's pricing?
-A: Project-based pricing depending on scope. Contact jalinbright@gmail.com
-for a custom quote.
+A: Project-based pricing depending on scope.
+Contact jalinbright@gmail.com for a custom quote.
 
 ## Q: Can Jalin add AI features to my existing website?
-A: Yes — Jalin can integrate Claude or other AI APIs into existing React
-or web applications. This includes chatbots, content generation,
-RAG systems, and more.
+A: Yes — Jalin can add an AI chat assistant or other AI tools
+to your existing website, so it can answer customer questions automatically.
