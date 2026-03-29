@@ -31,7 +31,46 @@
       "mcp__popeye__browser_snapshot",
       "mcp__popeye__browser_fill_form",
       "mcp__popeye__browser_run_code",
-      "Bash(git -C .trees/ui_feature log --oneline -5)"
+      "Bash(git -C .trees/ui_feature log --oneline -5)",
+      "Bash(python -m app.ingest)",
+      "Bash(python -c \":*)",
+      "Bash(git push:*)",
+      "Bash(curl:*)",
+      "Bash(npm install:*)",
+      "Bash(pkill -f \"vite\")",
+      "Bash(npm run:*)",
+      "Bash(node -e \"const m = require\\(''/Users/jalin/Documents/GitHub/my-web-portfolio/project-01-jalinbright/node_modules/react-markdown/index.js''\\); console.log\\(Object.keys\\(m\\)\\)\")",
+      "Bash(node --input-type=module:*)",
+      "Bash(vercel --prod)",
+      "Bash(vercel --prod --scope jalinnys-projects)",
+      "Bash(rm -rf /Users/jalin/Documents/GitHub/my-web-portfolio/.vercel)",
+      "Bash(vercel link:*)",
+      "Bash(cp:*)",
+      "Bash(python3 -c \"import langchain_anthropic; print\\(''langchain_anthropic available''\\)\")",
+      "Bash(pip3 list:*)",
+      "Bash(pip3 install:*)",
+      "Bash(python3 -c \":*)",
+      "Bash(python3:*)",
+      "Bash(1 python3:*)",
+      "Bash(pip3 show:*)",
+      "Bash(pip3 download:*)",
+      "Bash(git rm:*)",
+      "Bash(head -5 python3 -c \":*)",
+      "Bash(grep -v \"^$\")",
+      "Bash(python:*)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "read|grep",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "say \"All Done\""
+          }
+        ]
+      }
     ]
   }
 }

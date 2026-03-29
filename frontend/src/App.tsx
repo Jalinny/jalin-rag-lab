@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, type FormEvent } from "react";
-import { MarkdownHooks as ReactMarkdown } from "react-markdown";
+import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import type { Message } from "./types";
 
@@ -348,7 +348,6 @@ const STYLES = `
     font-size: 13px;
     line-height: 1.8;
     word-break: break-word;
-    white-space: pre-wrap;
   }
   .bubble.user {
     background: var(--black);
