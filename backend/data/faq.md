@@ -5,10 +5,14 @@ A: Jalin builds websites, online stores, and landing pages.
 She also runs Facebook, Instagram, and Google ad campaigns,
 and can add AI features like a chat assistant to your website.
 
+## Q: What platforms can Jalin build on?
+A: Jalin works with WordPress, Webflow, Shopify, Wix, Squarespace,
+and custom-built websites. She can also convert any Figma design into a working site.
+
 ## Q: What kind of websites can Jalin build?
 A: Any type — business websites, portfolios, nonprofit sites,
-service business sites with booking and contact forms, multi-page layouts,
-and sites converted from existing designs.
+service business sites with booking and contact forms, eCommerce stores,
+landing pages, and multi-page layouts.
 
 ## Q: Can Jalin work with my existing design?
 A: Yes. If you have a design in Figma, Webflow, or any other format,

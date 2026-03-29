@@ -9,7 +9,8 @@ She handles the whole process: design, development, and launch.
 
 ### Websites & Web Apps
 - Built multiple client and portfolio websites from scratch
-- Converts existing designs into real, working websites
+- Works with WordPress, Webflow, Shopify, and custom-built sites
+- Converts Figma designs into real, working websites
 - Builds multi-page sites with booking systems, contact forms, and blogs
 - Every site is mobile-friendly and fast
 
